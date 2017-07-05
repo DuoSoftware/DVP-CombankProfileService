@@ -64,6 +64,25 @@ RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference', authoriza
     return next();
 });
 
+RestServer.get('/DVP/API/' + version + '/Profile/ImportantData/:Reference', authorization({
+    resource: "myUserProfile",
+    action: "read"
+}), function (req, res, next) {
+    try {
+
+        logger.info('getProfileImportantData  - Request received -  Data - %s ', JSON.stringify(req.body));
+
+        if (!req.user || !req.user.tenant || !req.user.company)
+            throw new Error("invalid tenant or company.");
+        dbHandler.getImportantData(req,res);
+    }
+    catch (ex) {
+        res.status(400);
+        res.end(ex.message);
+    }
+    return next();
+});
+
 RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference/facetone', authorization({
     resource: "myUserProfile",
     action: "read"
@@ -81,7 +100,7 @@ RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference/facetone', 
 
         logger.error('getProfileData - Exception occurred -  Data - %s ', JSON.stringify(req.body), ex);
         var jsonString = messageFormatter.FormatMessage(ex, "EXCEPTION", false, undefined);
-        logger.debug('getProfileData - Request response : %s ', jsonString);
+        logger.info('getProfileData - Request response : %s ', jsonString);
         res.end(jsonString);
     }
     return next();
