@@ -52,6 +52,46 @@ module.exports.getProfileData = function (req, res) {
 
 };
 
+module.exports.getImportantData = function (req, res) {
+
+    var jsonString;
+    pool.open(cn, function (err, dbCon) {
+        if (err) {
+            res.status(522);
+            res.end(err.message);
+        }
+        else {
+            var query = util.format(config.DBTWO.ImportantDataSp, req.params.Reference);
+            dbCon.query(query, function (err, data) {
+                if (err) {
+                    res.status(444);
+                    res.end(err.message);
+                }
+                else {
+                    var newobj = {};
+                    if (data && data.length) {
+                        var key, keys = Object.keys(data[0]);
+                        var n = keys.length;
+                        while (n--) {
+                            key = keys[n];
+                            newobj[key.toLowerCase()] = data[0][key];
+                        }
+                    }
+
+                    logger.info("getImportantData  - Data found  - [%s]", data);
+                    res.end(JSON.stringify(newobj));
+                }
+                dbCon.close(function () {
+                    logger.info("Connection Close.");
+                })
+            });
+        }
+
+    });
+
+
+};
+
 module.exports.getProfileDataFacetone = function (req, res) {
 
     var jsonString;

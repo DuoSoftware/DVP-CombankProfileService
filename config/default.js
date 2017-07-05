@@ -35,6 +35,7 @@ module.exports = {
         "Port": "50000",
         "Host": "localhost",
         "Database": "sample",
-        "ProfileSp": "CALL GETPROFILE('%s')"
+        "ProfileSp": "CALL GETPROFILE('%s')",
+        "ImportantDataSp": "CALL GETPROFILEIMPORTANT('%s')"
     },
 };
