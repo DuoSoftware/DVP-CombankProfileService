@@ -105,3 +105,26 @@ RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference/facetone', 
     }
     return next();
 });
+
+RestServer.get('/DVP/API/' + version + '/Profile/External/profile/image/test', authorization({
+    resource: "myUserProfile",
+    action: "read"
+}), function (req, res, next) {
+    try {
+
+        logger.info('saveImageFile  - Request received -  Data - %s ', JSON.stringify(req.body));
+
+        if (!req.user || !req.user.tenant || !req.user.company)
+            throw new Error("invalid tenant or company.");
+
+        dbHandler.saveImageFile(req,res);
+    }
+    catch (ex) {
+
+        logger.error('saveImageFile - Exception occurred -  Data - %s ', JSON.stringify(req.body), ex);
+        var jsonString = messageFormatter.FormatMessage(ex, "EXCEPTION", false, undefined);
+        logger.info('saveImageFile - Request response : %s ', jsonString);
+        res.end(jsonString);
+    }
+    return next();
+});

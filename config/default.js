@@ -36,6 +36,6 @@ module.exports = {
         "Host": "localhost",
         "Database": "sample",
         "ProfileSp": "CALL GETPROFILE('%s')",
-        "ImportantDataSp": "CALL GETPROFILEIMPORTANT('%s')"
+        "ImportantDataSp": "CALL GETPROFILE('%s')"
     },
 };
