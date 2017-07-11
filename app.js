@@ -45,16 +45,10 @@ RestServer.use(jwt({secret: secret.Secret}));
 
 //-------------------------  Restify Server ------------------------- \\
 
-RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference', authorization({
-    resource: "myUserProfile",
-    action: "read"
-}), function (req, res, next) {
+RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference', function (req, res, next) {
     try {
 
         logger.info('getProfileData  - Request received -  Data - %s ', JSON.stringify(req.body));
-
-        if (!req.user || !req.user.tenant || !req.user.company)
-            throw new Error("invalid tenant or company.");
         dbHandler.getProfileData(req,res);
     }
     catch (ex) {
@@ -64,16 +58,11 @@ RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference', authoriza
     return next();
 });
 
-RestServer.get('/DVP/API/' + version + '/Profile/ImportantData/:Reference', authorization({
-    resource: "myUserProfile",
-    action: "read"
-}), function (req, res, next) {
+RestServer.get('/DVP/API/' + version + '/Profile/ImportantData/:Reference', function (req, res, next) {
     try {
 
         logger.info('getProfileImportantData  - Request received -  Data - %s ', JSON.stringify(req.body));
 
-        if (!req.user || !req.user.tenant || !req.user.company)
-            throw new Error("invalid tenant or company.");
         dbHandler.getImportantData(req,res);
     }
     catch (ex) {
@@ -106,16 +95,10 @@ RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference/facetone', 
     return next();
 });
 
-RestServer.get('/DVP/API/' + version + '/Profile/External/profile/image/test', authorization({
-    resource: "myUserProfile",
-    action: "read"
-}), function (req, res, next) {
+RestServer.get('/DVP/API/' + version + '/Profile/External/profile/image/test',function (req, res, next) {
     try {
 
         logger.info('saveImageFile  - Request received -  Data - %s ', JSON.stringify(req.body));
-
-        if (!req.user || !req.user.tenant || !req.user.company)
-            throw new Error("invalid tenant or company.");
 
         dbHandler.saveImageFile(req,res);
     }
