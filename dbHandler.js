@@ -55,7 +55,6 @@ module.exports.getProfileData = function (req, res) {
 
 module.exports.getImportantData = function (req, res) {
 
-    var jsonString;
     pool.open(cn, function (err, dbCon) {
         if (err) {
             res.status(522);
@@ -129,6 +128,45 @@ module.exports.getProfileDataFacetone = function (req, res) {
                 logger.info("Connection Close.");
             })
         });
+    });
+
+
+};
+
+module.exports.profileSearch = function (req, res) {
+
+    pool.open(cn, function (err, dbCon) {
+        if (err) {
+            res.status(522);
+            res.end(err.message);
+        }
+        else {
+            var query = util.format(config.DBTWO.ProfileSearchSp, req.params.SearchFiled,req.params.SearchValue);
+            dbCon.query(query, function (err, data) {
+                if (err) {
+                    res.status(444);
+                    res.end(err.message);
+                }
+                else {
+                    var newobj = {};
+                    if (data && data.length) {
+                        var key, keys = Object.keys(data[0]);
+                        var n = keys.length;
+                        while (n--) {
+                            key = keys[n];
+                            newobj[key.toLowerCase()] = data[0][key];
+                        }
+                    }
+
+                    logger.info("getProfileData  - Data found  - [%s]", data);
+                    res.end(JSON.stringify(newobj));
+                }
+                dbCon.close(function () {
+                    logger.info("Connection Close.");
+                })
+            });
+        }
+
     });
 
 

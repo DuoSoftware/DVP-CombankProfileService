@@ -72,6 +72,19 @@ RestServer.get('/DVP/API/' + version + '/Profile/ImportantData/:Reference', func
     return next();
 });
 
+RestServer.get('/DVP/API/' + version + '/Profile/Search/:SearchFiled/:SearchValue', function (req, res, next) {
+    try {
+
+        logger.info('profileSearch  - Request received -  Data - %s ', JSON.stringify(req.body));
+        dbHandler.profileSearch(req,res);
+    }
+    catch (ex) {
+        res.status(400);
+        res.end(ex.message);
+    }
+    return next();
+});
+
 RestServer.get('/DVP/API/' + version + '/Profile/External/:Reference/facetone', authorization({
     resource: "myUserProfile",
     action: "read"
