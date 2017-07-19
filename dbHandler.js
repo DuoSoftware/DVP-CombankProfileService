@@ -158,7 +158,7 @@ module.exports.profileSearch = function (req, res) {
                         }
                     }
 
-                    logger.info("getProfileData  - Data found  - [%s]", data);
+                    logger.info("profileSearch  - Data found  - [%s]", data);
                     res.end(JSON.stringify(newobj));
                 }
                 dbCon.close(function () {
