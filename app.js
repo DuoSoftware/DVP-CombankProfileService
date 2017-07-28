@@ -16,7 +16,7 @@ var dbHandler = require('./dbHandler');
 
 //-------------------------  Restify Server ------------------------- \\
 var RestServer = restify.createServer({
-    name: "campaignmanager",
+    name: "CombankProfileService",
     version: '1.0.0'
 });
 
