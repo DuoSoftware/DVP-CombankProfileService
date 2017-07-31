@@ -154,6 +154,7 @@ module.exports.profileSearch = function (req, res) {
                         var n = keys.length;
                         while (n--) {
                             key = keys[n];
+
                             newobj[key.toLowerCase()] = data[0][key];
                         }
                     }
