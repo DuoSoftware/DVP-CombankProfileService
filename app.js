@@ -11,8 +11,9 @@ var config = require('config');
 var port = config.Host.port || 3000;
 var version = config.Host.version;
 var logger = require('dvp-common/LogHandler/CommonLogHandler.js').logger;
-var dbHandler = require('./dbHandler');
 
+const dbFactory = require('./dbFactory');
+var dbHandler = dbFactory(config.active_db);
 
 //-------------------------  Restify Server ------------------------- \\
 var RestServer = restify.createServer({
@@ -62,7 +63,7 @@ RestServer.get('/DVP/API/' + version + '/Profile/ImportantData/:Reference', func
     try {
 
         logger.info('getProfileImportantData  - Request received -  Data - %s ', JSON.stringify(req.body));
-
+-
         dbHandler.getImportantData(req,res);
     }
     catch (ex) {
