@@ -8,9 +8,9 @@ const db_two_handler = require('./db_two_handler');
 
 const dbFactory = function(type){
     if(type === 'db_two'){
-        return new db_two_handler()
+        return db_two_handler;
     } else if(type === 'mongo') {
-        return new db_mongo_handler()
+        return db_mongo_handler;
     }
 };
 
