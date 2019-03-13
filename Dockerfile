@@ -9,9 +9,9 @@
 
 FROM node:9.9.0
 ARG VERSION_TAG
-RUN git clone -b $VERSION_TAG https://github.com/DuoSoftware/DVP-CombankProfileService.git
+RUN git clone -b $VERSION_TAG https://github.com/DuoSoftware/DVP-CombankProfileService.git /usr/local/src/combankprofileservice
 RUN cd /usr/local/src/combankprofileservice
 WORKDIR /usr/local/src/combankprofileservice
 RUN npm install
-EXPOSE 8999
+EXPOSE 8827
 CMD [ "node", "/usr/local/src/combankprofileservice/app.js" ]
