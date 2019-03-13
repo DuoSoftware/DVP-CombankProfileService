@@ -49,5 +49,5 @@ module.exports = {
         "ProfileSearchSp": "CALL PROFILESEARCH('%s','%s')",
         "ImportantDataSp": "CALL GETPROFILE('%s')"
     },
-    "active_db" : "db_two" //db_two ,mongo
+    "active_db" : "mongo" //db_two ,mongo
 };
