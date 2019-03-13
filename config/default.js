@@ -7,6 +7,14 @@ module.exports = {
         "Host":"104.236.231.11",//104.131.105.222
         "Database":"duo"
     },
+    "Mongo":
+  {
+    "ip":"104.236.231.11",
+    "port":"27017",
+    "dbname":"dvpdb",
+    "password":"DuoS123",
+    "user":"duo"
+  },
     "Redis":
     {
         "ip": "45.55.142.207",
